@@ -18,6 +18,7 @@ services:
         volumes:
             - ./ssl/storage-proxy/s3.docker.mender.io.crt:/var/www/storage-proxy/cert/cert.crt
             - ./ssl/storage-proxy/s3.docker.mender.io.key:/var/www/storage-proxy/cert/key.pem
+            - ./storage-proxy/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
 
     mender-deployments:
         volumes:
