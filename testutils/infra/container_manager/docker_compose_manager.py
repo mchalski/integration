@@ -19,6 +19,7 @@ import subprocess
 import filelock
 import logging
 import copy
+from testutils.common import wait_for_traefik
 
 from .docker_manager import DockerNamespace
 
@@ -153,7 +154,6 @@ class DockerComposeNamespace(DockerNamespace):
             )
             running_countainers_count = len(out.split())
             if running_countainers_count == expected_containers:
-                time.sleep(60)
                 return
             else:
                 time.sleep(1)
@@ -188,6 +188,7 @@ class DockerComposeNamespace(DockerNamespace):
 
     def setup(self):
         self._docker_compose_cmd("up -d")
+        wait_for_traefik(self.get_mender_gateway())
 
     def teardown(self):
         self._debug_log_containers_logs()
